@@ -2,9 +2,10 @@
 #include<algorithm>
 #include<math.h>
 
+#define c 0.02
+
 using namespace std;
 
-double Var(int);// изменение задания по варианту 
 void Print(double[][4], double[]);// вывод матрицы 3х1 и 4х4 
 void Prepa(double[][4], double[]);// Преобразованная система по диагонали
 double normal(double[]);// норма матрицы 3х1
@@ -19,8 +20,6 @@ void cp(double[], double[]);
 int main()
 {
 	setlocale(LC_ALL, "rus");
-	double c;
-	c = Var(2);//2 = вариант!
 	double arrC[4][4] = { { { 0.95 + c },{ 0.26 + c },{ -0.17 + c },{ 0.27 + c }, },
 	{ { -0.15 + c },{ 1.26 + c },{ 0.36 + c },{ 0.42 + c }, },
 	{ { 0.26 + c },{ -0.52 + c },{ -1.76 + c },{ 0.31 + c }, },
@@ -30,42 +29,33 @@ int main()
 
 	Print(arrC, arrB);
 	Prepa(arrC, arrB);
-	Print(arrC, arrB);
-	cout << "Число шагов для достижения 0.0001: " << Error(normal(arrC), normal(arrB)) << endl;
 
-	//////////////////////////////////////
-	Mult(arrC, arrB, arrCB);//C*B
-	Minus(arrB, arrCB, arrX);//B-CB
+	cout << "steps to accuracy 0.0001: " << Error(normal(arrC), normal(arrB)) << endl;
 
-	for (int i(0); i <(int)Error(normal(arrC), normal(arrB)); i++)
+	Mult(arrC, arrB, arrCB);		//arrC * arrB = arrCB
+	Minus(arrB, arrCB, arrX);		//arrB - arrCB = arrX
+
+	for (int i(0);; i++)
 	{
-		cp(temp, arrX);
-		Mult(arrC, arrX, arrCB);
-		Minus(arrB, arrCB, arrX);
-		Minus(arrX, temp, test);
-		cout << "интерпритация № " << i + 1 << " - " << normal(arrC) / (1 - normal(arrC))*normal(test) << endl;
+		cp(temp, arrX);				//temp = arrX
+		Mult(arrC, arrX, arrCB);	//arrC * arrX = arrCB
+		Minus(arrB, arrCB, arrX);	//arrB - arrCB = arrX
+		Minus(arrX, temp, test);	//arrX - temp = test
+
+		cout << "interpretation № " << i + 1 << " - (accuracy) " << normal(arrC) / (1 - normal(arrC))*normal(test) << endl;
+
+		if (normal(arrC) / (1 - normal(arrC))*normal(test) < 0.0001)
+		{
+			Print(arrX);
+			break;
+		}
 	}
 
-	Mult(arrC, arrX, arrCB);//C*X(k)
-	Minus(arrB, arrCB, arrX);//B-C*X(k)
-							 /////////////////////////////////////
-
-							 //Print(temp);//X(k-1)
-							 //Print(arrX);//X(k)
-
-							 //проверка погрешности
-							 //Minus(arrX, temp, test);
-							 //cout << normal(test) << endl;
-
-							 //cout << normal(arrC) / (1 - normal(arrC))*normal(test) << endl;
-
+	Mult(arrC, arrX, arrCB);		//arrC * arrX = arrCB
+	Minus(arrB, arrCB, arrX);		//arrB - arrCB = arrX
+							
 	system("pause");
 	return 0;
-}
-
-double Var(int n)
-{
-	return (double)n*0.01;
 }
 
 void Print(double C[][4], double B[])
@@ -125,13 +115,20 @@ void Mult(double C[][4], double B[], double CB[])
 {
 	for (int i(0); i < 4; i++)
 	{
-		CB[i] = C[i][0] * B[i] + C[i][1] * B[i] + C[i][2] * B[i] + C[i][3] * B[i];
+		CB[i] = 0;
+		for (int j(0); j < 4; j++)
+		{
+			CB[i] += C[i][j] * B[i];
+		}
 	}
 }
 
 void Print(double X[])
 {
-	cout << endl << X[0] << endl << X[1] << endl << X[2] << endl << X[3] << endl;
+	for (int i(0); i < 4; i++)
+	{
+		cout << X[i] << endl;
+	}
 }
 
 void Minus(double B[], double CX[], double X[])
