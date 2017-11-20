@@ -93,10 +93,13 @@ void Prepa(double C[][4], double B[])
 
 double normal(double C[][4])
 {
-	double str[4];
+	double str[4] = {};
 	for (int i(0); i < 4; i++)
 	{
-		str[i] = abs(C[i][0]) + abs(C[i][1]) + abs(C[i][2]) + abs(C[i][3]);
+		for (int j(0); j < 4; j++)
+		{
+			str[i] += abs(C[i][j]);
+		}
 	}
 	return max(str[0], max(str[1], max(str[2], str[3])));
 }
