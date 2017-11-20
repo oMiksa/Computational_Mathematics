@@ -3,13 +3,13 @@
 
 using namespace std;
 
-double f(double);
+double f(double);//function
 
 int main()
 {
 	setlocale(LC_ALL, "rus");
 
-	// итервал(3.5; 4)
+
 	double a, b, e(0.0001);
 	int arr[201];
 	arr[200] = 200;
