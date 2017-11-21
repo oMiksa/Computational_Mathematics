@@ -1,6 +1,9 @@
 #include<iostream>
 #include<math.h>
 
+#define first -100
+#define last 100
+
 using namespace std;
 
 double f(double);//function
@@ -9,16 +12,12 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 
-
-	double a, b, e(0.0001);
-	int arr[201];
-	arr[200] = 200;
-	double AB[10];
+	double a, b, temp, e(0.0001);
+	double AB[10];//array of points 
 	int j(0);
-	cout << "Интервалы: ";
-	for (int i(-100); i < 100; i++)
+	cout << "solution of linear equations\ninterval: ";
+	for (int i(first); i < last; i++)
 	{
-		arr[i + 100] = i;
 		if (f(i) * f(i + 1) < 0)
 		{
 			AB[j] = i;
@@ -30,7 +29,6 @@ int main()
 	}
 	cout << endl;
 
-	double temp;
 	for (int i(0); i < 3; i++)
 	{
 		cout << "X ~ ";
@@ -52,7 +50,6 @@ int main()
 			if (f(a)*f(temp) < 0)
 				b = temp;
 			if (f(temp)*f(b) < 0)
-
 				a = temp;
 		}
 	}

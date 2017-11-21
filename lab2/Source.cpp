@@ -6,21 +6,21 @@
 
 using namespace std;
 
-void Print(double[][4], double[]);// вывод матрицы 3х1 и 4х4 
-void Prepa(double[][4], double[]);// Преобразованная система по диагонали
-double normal(double[]);// норма матрицы 3х1
-double normal(double[][4]);// норма матрицы 4х4
-double Error(double, double);//кол-во шагов погрешности
-void Mult(double[][4], double[], double[]);// умножение матриц
-void Print(double[]);// вывод матрицы 3х1
-void Minus(double[], double[], double[]);// вычитание матриц
+void Print(double[][4], double[]);
+void Prepa(double[][4], double[]);
+double normal(double[]);
+double normal(double[][4]);
+double Error(double, double);
+void Mult(double[][4], double[], double[]);
+void Print(double[]);
+void Minus(double[], double[], double[]);
 void cp(double[], double[]);
 
 
 int main()
 {
 	setlocale(LC_ALL, "rus");
-
+	cout << "solution of systems of linear equations" << endl;
 	double arrC[4][4] = {	{ { 0.95 + c },{ 0.26 + c },{ -0.17 + c },{ 0.27 + c }, },
 							{ { -0.15 + c },{ 1.26 + c },{ 0.36 + c },{ 0.42 + c }, },
 							{ { 0.26 + c },{ -0.52 + c },{ -1.76 + c },{ 0.31 + c }, },

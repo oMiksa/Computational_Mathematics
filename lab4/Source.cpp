@@ -14,7 +14,7 @@ int main()
 	double h(Step(c));
 
 	double arr[3][22];
-
+	cout << "numerical differentiation" << endl;
 	cout << "|	h		|	f(x)	|	f`(x)	|" << endl;
 
 	for (int i(0); i < 22; i++)

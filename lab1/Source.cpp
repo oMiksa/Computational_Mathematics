@@ -25,11 +25,14 @@ int main()
 		arr1[i] = 2 * pow(c, 3)*sin(points(i, h) / c);
 		arr3[i] = 2 * pow(c, 3)*sin(pointsD(i, h) / c);
 	}
+
 	for (int i(0); i < 30; i++)
 	{
 		//x1,y1,x2,y2,X
 		arr2[i] = li(pointsD(i, h), arr3[i], pointsD((i + 1), h), arr3[i + 1], points(i, h));
 	}
+
+	cout << "linear interpolation" << endl;
 
 	Print(arr1, arr2, 30);
 
